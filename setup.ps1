@@ -75,9 +75,13 @@ winget install Python.Python
 
 #====================
 
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 # install nvim,python
 choco install neovim --version="0.5.0-beta"
 choco install python
+
+refreshenv
+# https://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
 
 # install vim plug
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
@@ -87,4 +91,3 @@ pip3 install neovim
 
 # install vim config for vscode from my github
 git clone https://github.com/a45s67/nvim.git "$($env:localappdata)/nvim"
- 
