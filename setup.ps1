@@ -53,8 +53,12 @@ winget install -s winget Microsoft.WindowsTerminal
 
 # install powertoys
 winget install Microsoft.PowerToys
+
+# install powershell
+winget install --id Microsoft.PowerShell
+
 # install Fluent Search
-winget install 21814BlastApps.BlastSearch
+# winget install 21814BlastApps.BlastSearch
 
 #====================
 # install vs2019
@@ -90,4 +94,9 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 pip3 install neovim
 
 # install vim config for vscode from my github
-git clone https://github.com/a45s67/nvim.git "$($env:localappdata)/nvim"
+git clone https://github.com/a45s67/nvim.git "$($env:localappdata)/nvim" -or
+git -C "$($env:localappdata)/nvim" pull
+
+# copy settings
+Copy-Item "$($env:localappdata)\nvim\utils\vscode_config\*" "$($env:appdata)\code\User"
+
