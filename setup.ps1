@@ -1,3 +1,11 @@
+function install_wrap{
+  param(
+    $pkg
+  )
+  winget list $pkg; (-not $LASTEXITCODE) -and (winget install $pkg)
+  
+}
+
 # do first: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
 # install winget
