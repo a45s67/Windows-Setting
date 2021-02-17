@@ -2,7 +2,7 @@ function install_wrap{
   param(
     $pkg
   )
-  winget list $pkg; (-not $LASTEXITCODE) -and (winget install $pkg)
+  winget list $pkg; (-not ($LASTEXITCODE -eq 0)) -and (winget install $pkg)
   
 }
 
