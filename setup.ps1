@@ -49,25 +49,25 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 #=======================================================
 
 # install 1password
-winget install  AgileBits.1Password
+install_wrap -pkg  AgileBits.1Password
 # install slack, microsoft teams, outlook
-winget install SlackTechnologies.Slack Microsoft.Teams
+install_wrap -pkg SlackTechnologies.Slack Microsoft.Teams
 
 
 # install github
-winget install  GitHub.cli
-winget install  Git.Git
+install_wrap -pkg  GitHub.cli
+install_wrap -pkg  Git.Git
 # install windows ternimal
-winget install -s winget Microsoft.WindowsTerminal
+install_wrap -pkg Microsoft.WindowsTerminal
 
 # install powertoys
-winget install Microsoft.PowerToys
+install_wrap -pkg Microsoft.PowerToys
 
 # install powershell
-winget install --id Microsoft.PowerShell
+install_wrap -pkg --id Microsoft.PowerShell
 
 # install Fluent Search
-# winget install 21814BlastApps.BlastSearch
+# install_wrap -pkg 21814BlastApps.BlastSearch
 
 #====================
 # install vs2019
@@ -75,7 +75,7 @@ winget install --id Microsoft.PowerShell
 # install vcpkg
 
 # install python
-winget install Python.Python
+install_wrap -pkg Python.Python
 
 #======================
 # install vmware
@@ -92,7 +92,7 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 # install nvim,python
 choco install neovim --version="0.5.0-beta"
 choco install python
-
+choco install cascadia-code-nerd-font
 refreshenv
 # https://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
 
@@ -112,13 +112,15 @@ Copy-Item "$($env:localappdata)\nvim\utils\vscode_config\*" "$($env:appdata)\cod
 #=======> termianl setting <=========
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
+Update-Module -Name oh-my-posh -AllowPrerelease -Scope CurrentUser
 
 if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
 
 $theme_startup = @'
 Import-Module posh-git
 Import-Module oh-my-posh
-Set-Theme  Punk  # Emodipt , paradox , punk , sorin , ys 
+Set-PoshPrompt pure
+# Set-Theme  Punk  # Emodipt , paradox , punk , sorin , ys 
 '@
 Add-Content -Path $PROFILE -Value  $theme_startup
 # dont forget to install fonts (like nerd-font, cascadia code, firacode)
