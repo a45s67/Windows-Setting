@@ -1,6 +1,6 @@
 function install_wrap{
   param(
-    $pkg
+    $pkg,
     $src="winget"
   )
   winget list $pkg; (-not ($LASTEXITCODE -eq 0)) -and (winget install $pkg --source $src)
