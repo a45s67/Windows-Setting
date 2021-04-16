@@ -11,6 +11,8 @@ function install_wrap{
 
 # install winget
 # (in my gmail) ms-windows-store://pdp/?productid=9nblggh4nns1
+Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v-0.2.10191-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle -outfile winget.appxbundle
+Add-AppxPackage -Path "winget.appxbundle"
 
 # set MSstore
 $setting = @"
