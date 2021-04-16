@@ -11,7 +11,7 @@ function install_wrap{
 
 # install winget
 # (in my gmail) ms-windows-store://pdp/?productid=9nblggh4nns1
-Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v-0.2.10191-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle -outfile winget.appxbundle
+Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v-0.2.10971-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle
 Add-AppxPackage -Path "winget.appxbundle"
 
 # set MSstore
@@ -53,7 +53,9 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 # install 1password
 install_wrap -pkg  AgileBits.1Password
 # install slack, microsoft teams, outlook
-install_wrap -pkg SlackTechnologies.Slack Microsoft.Teams
+install_wrap -pkg SlackTechnologies.Slack 
+
+install_wrap -pkg Microsoft.Teams
 
 
 # install github
