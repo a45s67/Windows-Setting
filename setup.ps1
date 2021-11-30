@@ -114,15 +114,14 @@ git -C "$($env:localappdata)/nvim" pull
 Copy-Item "$($env:localappdata)\nvim\utils\vscode_config\*" "$($env:appdata)\code\User"
 
 #=======> termianl setting <=========
+winget install JanDeDobbeleer.OhMyPosh
 Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
 Update-Module -Name oh-my-posh -AllowPrerelease -Scope CurrentUser
 
 if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
 
 $theme_startup = @'
 Import-Module posh-git
-Import-Module oh-my-posh
 Set-PoshPrompt pure
 # Set-Theme  Punk  # Emodipt , paradox , punk , sorin , ys 
 '@
