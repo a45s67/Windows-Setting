@@ -94,9 +94,11 @@ install_wrap -pkg Python.Python
 
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 # install nvim,python
-choco install neovim --version="0.5.0-beta"
-choco install python
-choco install cascadia-code-nerd-font
+choco install neovim -y
+choco install python -y
+choco install cascadia-code-nerd-font -y
+choco install fzf -y
+choco install ripgrep -y
 refreshenv
 # https://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
 
