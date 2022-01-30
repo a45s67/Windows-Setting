@@ -1,8 +1,11 @@
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
+        ";" +
+        [System.Environment]::GetEnvironmentVariable("Path","User")
 Import-Module posh-git
-oh-my-posh --init --shell pwsh --config ~\AppData\Local\Programs\oh-my-posh\themes\emodipt.omp.json | Invoke-Expression
-Invoke-Expression (& { (lua C:\github\z.lua --init powershell) -join "`n" })
-# Import-Module oh-my-posh
-# Set-PoshPrompt pure
+oh-my-posh --init --shell pwsh --config ~\.mytheme.omp.json | Invoke-Expression
+Invoke-Expression (& { (lua C:\github\z.lua\z.lua --init powershell) -join "`n" })
+Import-Module -Name Terminal-Icons
+. $HOME\PSReadLineProfile.ps1
 
 function Unzip-Agent {
     param (
