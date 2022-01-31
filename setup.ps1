@@ -9,39 +9,6 @@ function install_wrap{
 
 # do first: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
-# install winget
-# (in my gmail) ms-windows-store://pdp/?productid=9nblggh4nns1
-Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v-0.2.10971-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle
-Add-AppxPackage -Path "winget.appxbundle"
-
-# set MSstore
-$setting = @"
-{
-    // For documentation on these settings, see: https://aka.ms/winget-settings
-    // "source": {
-    //    "autoUpdateIntervalInMinutes": 5
-    // },
-    "visual": {
-      "progressBar": "rainbow"
-    },
-
-    "experimentalFeatures": {
-      "experimentalCmd": true,
-      "experimentalArg": true,
-      "experimentalMSStore": true,
-      "list": true
-    }
-}
-"@
-# https://www.bleepingcomputer.com/news/microsoft/windows-10-package-manager-can-now-install-microsoft-store-apps/
-
-$json = "$($env:localappdata)\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
-Clear-Content -Path $json -Force
-Add-Content -Path $json -Value $setting
-
-# use oneget: 
-# https://blog.miniasp.com/post/2016/02/19/Useful-tool-PackageManagement-OneGet
-
 
 # install choco
 Set-ExecutionPolicy Bypass -Scope Process -Force;
