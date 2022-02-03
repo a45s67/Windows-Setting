@@ -35,7 +35,7 @@ install_wrap -pkg Microsoft.WindowsTerminal
 install_wrap -pkg Microsoft.PowerToys
 
 # install powershell
-install_wrap -pkg --id Microsoft.PowerShell
+install_wrap -pkg Microsoft.PowerShell
 
 # install Fluent Search
 # install_wrap -pkg 21814BlastApps.BlastSearch
