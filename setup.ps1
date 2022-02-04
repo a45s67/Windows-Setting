@@ -76,7 +76,7 @@ refreshenv
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
     ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
 # install nvim module in python
-pip3 install neovim
+py -m pip install pynvim
 
 # install vim config for vscode from my github
 git clone https://github.com/a45s67/nvim.git "$($env:localappdata)/nvim" -or
