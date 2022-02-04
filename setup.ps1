@@ -87,14 +87,8 @@ Install-Module posh-git -Scope CurrentUser
 Install-Module PSReadLine -AllowPrerelease -Force
 Install-Module -Name Terminal-Icons -Repository PSGallery
 
-if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
-
-$theme_startup = @'
-Import-Module posh-git
-Set-PoshPrompt pure
-# Set-Theme  Punk  # Emodipt , paradox , punk , sorin , ys 
-'@
-Add-Content -Path $PROFILE -Value  $theme_startup
+New-Item -Path $PROFILE -ItemType SymbolicLink -Value C:\Users\Fish\github\My-Windows-Setup\Microsoft.Powershell_Profile.ps1
+New-Item -Path ~/PSReadLineProfile.ps1 -ItemType SymbolicLink -Value C:\Users\Fish\github\My-Windows-Setup\PSReadLineProfile.ps1 
 # dont forget to install fonts (like nerd-font, cascadia code, firacode)
 
 
