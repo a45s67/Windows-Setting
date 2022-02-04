@@ -40,6 +40,9 @@ install_wrap -pkg --id Microsoft.PowerShell
 # install Fluent Search
 # install_wrap -pkg 21814BlastApps.BlastSearch
 
+# install 7z
+winget install -e --id 7zip.7zip
+
 #====================
 # install vs2019
 
