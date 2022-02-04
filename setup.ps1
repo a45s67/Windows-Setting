@@ -48,8 +48,8 @@ winget install -e --id 7zip.7zip
 
 # install vcpkg
 
-# install python
-install_wrap -pkg Python.Python
+# install node
+winget install -e --id OpenJS.NodeJS
 
 #======================
 # install vmware
