@@ -79,11 +79,7 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 py -m pip install pynvim
 
 # install vim config for vscode from my github
-git clone https://github.com/a45s67/nvim.git "$($env:localappdata)/nvim" -or
-git -C "$($env:localappdata)/nvim" pull
-
-# copy settings
-Copy-Item "$($env:localappdata)\nvim\utils\vscode_config\*" "$($env:appdata)\code\User"
+git clone https://github.com/a45s67/nvim-note.git "$($env:localappdata)/nvim" 
 
 #=======> termianl setting <=========
 winget install JanDeDobbeleer.OhMyPosh
