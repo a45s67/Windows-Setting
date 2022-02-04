@@ -84,7 +84,8 @@ git clone https://github.com/a45s67/nvim-note.git "$($env:localappdata)/nvim"
 #=======> termianl setting <=========
 winget install JanDeDobbeleer.OhMyPosh
 Install-Module posh-git -Scope CurrentUser
-Update-Module -Name oh-my-posh -AllowPrerelease -Scope CurrentUser
+Install-Module PSReadLine -AllowPrerelease -Force
+Install-Module -Name Terminal-Icons -Repository PSGallery
 
 if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
 
