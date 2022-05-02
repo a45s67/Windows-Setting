@@ -1,0 +1,138 @@
+- name: Test connection
+  hosts: all
+  tasks:
+    - name: Ping
+      win_ping:
+    - name: Show whoami
+      ansible.windows.win_command: whoami
+      register: whoami
+    - debug: var=whoami.stdout 
+
+
+- name: Install password manager tools
+  hosts: all
+  tasks: 
+    - name: Install 1password
+      win_command: winget install -e --id AgileBits.1Password
+    - name: Install Bitwarden
+      win_command: winget install -e --id Bitwarden.Bitwarden
+
+- name: Install communication softwares
+  hosts: all
+  tasks: 
+    - name: Install Slack
+      win_command: 
+    - name: Install Microsoft Teams
+      win_command: winget install -e --id Microsoft.Teams
+    - name: Install Slack
+      win_command: winget install -e --id SlackTechnologies.Slack
+
+- name: Install version control tools
+  hosts: all
+  tasks: 
+    - name: Install Git
+      win_command: winget install -e --id Git.Git
+    - name: Install Github.cli
+      win_command: winget install -e --id GitHub.cli
+
+- name: Install development tools
+  hosts: all
+  tasks: 
+    - name: Install Windows Terminal
+      win_command: winget install -e --id Microsoft.WindowsTerminal
+
+    - name: Install Microsoft PowerToys
+      win_command: winget install -e --id Microsoft.PowerToys
+
+    - name: Install PowerShell 7
+      win_command: winget install -e --id Microsoft.PowerShell
+
+    - name: Install Windows Terminal
+      win_command: 
+
+- name: Install tools for daily tasks
+  hosts: all
+  tasks: 
+    - name: Install 7zip
+      win_command: winget install -e --id 7zip.7zip
+    - name: Install fzf, ripgrep
+      win_chocolatey:
+        name:
+        - fzf
+        - ripgrep
+
+- name: Install programming language supports
+  hosts: all
+  tasks: 
+    - name: Install Node
+      win_command: winget install -e --id OpenJS.NodeJS
+
+    - name: Install Python3
+      win_command: winget install -e --id Python.Python.3
+    
+    
+
+- name: Install IDEs, editors
+  hosts: all
+  tasks: 
+    - name: Install vscode
+      win_command: winget install -e --id Microsoft.VisualStudioCode
+
+    - name: Install visual studio 2019
+      win_ping:
+      # Haven't figure out how to automate the installation. Maybe reference the dockerfile I have done before.
+
+    - name: Install neovim
+      win_ping:
+      # win_chocolatey: the pkg did not pass virustotal. Maybe install it myself.
+      #   name: neovim
+    - name: Install pynvim
+      win_command: py -m pip install pynvim
+
+
+      win_command: winget install -e --id 7zip.7zip
+    
+- name: Install some trival things
+  hosts: all
+  tasks: 
+    - name: Install cascadia nerd font
+      win_chocolatey:
+        name:
+        - cascadia-code-nerd-font
+    - name: Install ohmyposh
+      win_command: winget install oh-my-posh
+
+
+
+#=======> nvim <=============
+#
+# $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+# # install nvim,python
+# choco install neovim -y
+# choco install python -y
+# choco install cascadia-code-nerd-font -y
+# choco install fzf -y
+# choco install ripgrep -y
+# refreshenv
+# # https://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
+#
+# # install vim plug
+# iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
+#     ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
+# # install nvim module in python
+# py -m pip install pynvim
+#
+# # install vim config for vscode from my github
+# git clone https://github.com/a45s67/nvim-note.git "$($env:localappdata)/nvim"
+#
+# #=======> termianl setting <=========
+# winget install JanDeDobbeleer.OhMyPosh
+# Install-Module posh-git -Scope CurrentUser
+# Install-Module PSReadLine -AllowPrerelease -Force
+# Install-Module -Name Terminal-Icons -Repository PSGallery
+#
+# New-Item -Path $PROFILE -ItemType SymbolicLink -Value C:\Users\Fish\github\My-Windows-Setup\Microsoft.Powershell_Profile.ps1
+# New-Item -Path ~/PSReadLineProfile.ps1 -ItemType SymbolicLink -Value C:\Users\Fish\github\My-Windows-Setup\PSReadLineProfile.ps1
+# # dont forget to install fonts (like nerd-font, cascadia code, firacode)
+#
+#

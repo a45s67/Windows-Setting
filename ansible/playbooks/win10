@@ -1,0 +1,14 @@
+# Configure the user/password at cmd line with --extra-vars "ansible_user=xxx ansible_password=xxx"
+# https://stackoverflow.com/questions/37004686/how-to-pass-a-user-password-in-ansible-command
+# Configure the host at cmd line with --extra-vars "target_host=xxx.xxx.xxx.xxx"
+# https://stackoverflow.com/questions/33222641/override-hosts-variable-of-ansible-playbook-from-the-command-line
+"{{ target_host }}"
+
+[all:vars]
+# ansible_user=ansibleuser
+# ansible_password=userpasswd
+ansible_connection=winrm
+shell_type=powershell
+ansible_port=5986
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
