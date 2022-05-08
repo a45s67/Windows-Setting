@@ -1,0 +1,138 @@
+- name: Test connection
+  hosts: all
+  tasks:
+    - name: Ping
+      win_ping:
+    - name: Show whoami
+      ansible.windows.win_command: whoami
+      register: whoami
+    - debug: var=whoami.stdout 
+
+- name: Initialize directory for github repos
+  hosts: all
+  tasks:
+    - name: Create ~/github
+      win_file:
+        path: "{{ ansible_env.USERPROFILE }}/github"
+        state: directory
+
+- name: Prepare development environment
+  hosts: all
+  tasks: 
+    # - name: Install Windows Terminal
+    #   win_command: winget install -e --id Microsoft.WindowsTerminal
+    - name: Install PowerShell 7
+      win_command: winget install -e --id Microsoft.PowerShell
+
+- name: Set tools for researching windows
+  hosts: all
+  tasks:
+    - name: Download security researching tool package
+      win_get_url:
+        url: https://drive.google.com/uc?export=download&id=1NeKXEP7WQFPc7FcA8s0d2B7bAGYOs52w
+        dest: "{{ ansible_env.USERPROFILE }}\\Desktop\\windows_secuirty.zip"
+    - name: Unzip package
+      win_unzip:
+        src: "{{ ansible_env.USERPROFILE }}\\Desktop\\windows_secuirty.zip"
+        dest: "{{ ansible_env.USERPROFILE }}\\Desktop\\windows_secuirty"
+        creates: "{{ ansible_env.USERPROFILE }}\\Desktop\\windows_secuirty"
+
+
+- name: Set terminal appearence 
+  hosts: all
+  tasks: 
+    - name: Install cascadia nerd font
+      win_chocolatey:
+        name:
+        - cascadia-code-nerd-font
+
+- name: Install advance powershell plugins
+  hosts: all
+  tasks: 
+    - name: Install ohmyposh
+      win_command: winget install oh-my-posh
+    - name: Install PSReadLine and TerminalIcons
+      win_command: pwsh.exe -noprofile -command "Install-Module PSReadLine -AllowPrerelease -Force; Install-Module -Name Terminal-Icons -Repository PSGallery"
+
+- name: Sync powershell configs
+  hosts: all
+  tasks:
+    - name: Clear the directory path
+      win_file:
+        state: absent
+        path: "{{ ansible_env.USERPROFILE }}/github/Windows-Setting"
+
+    - name: Clone the windows setting repo
+      # SSH url will failed, why ... (git@github.com:a45s67/Windows-Setting.git) 
+      win_command: git clone https://github.com/a45s67/Windows-Setting.git "{{ ansible_env.USERPROFILE }}/github/Windows-Setting"
+
+    - name: Symlink the config files
+      ansible.windows.win_powershell:
+        script: | 
+          New-Item -Path $PROFILE -ItemType SymbolicLink -Value ~/github/Windows-Setting/Microsoft.Powershell_Profile.ps1
+          New-Item -Path ~/PSReadLineProfile.ps1 -ItemType SymbolicLink -Value ~/github/Windows-Setting/PSReadLineProfile.ps1 
+
+- name: Sync powershell configs
+  hosts: all
+  tasks:
+    - name: Clear the directory path
+      win_file:
+        state: absent
+        path: "{{ ansible_env.USERPROFILE }}/github/Windows-Setting"
+
+    - name: Clone the windows setting repo
+      # SSH url will failed, why ... (git@github.com:a45s67/Windows-Setting.git) 
+      win_command: git clone https://github.com/a45s67/Windows-Setting.git "{{ ansible_env.USERPROFILE }}/github/Windows-Setting"
+
+    - name: Symlink the config files
+      ansible.windows.win_powershell:
+        script: | 
+          New-Item -Path $PROFILE -ItemType SymbolicLink -Value ~/github/Windows-Setting/Microsoft.Powershell_Profile.ps1
+          New-Item -Path ~/PSReadLineProfile.ps1 -ItemType SymbolicLink -Value ~/github/Windows-Setting/PSReadLineProfile.ps1 
+
+- name: Set nvim configs
+  hosts: all
+  tasks:
+    - name: Clear the directory path
+      win_file:
+        state: absent
+        path: "{{ ansible_env.USERPROFILE }}/github/nvim-note"
+
+    - name: Set vim-plug
+      ansible.windows.win_powershell: 
+        script: |
+          iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
+          ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
+
+    - name: Install python neovim plugin
+      win_command: py -m pip install pynvim
+
+    - name: Clone the neovim setting repo
+      win_command: git clone https://github.com/a45s67/nvim-note.git "{{ ansible_env.USERPROFILE }}/github/nvim-note"
+
+    - name: Symlink the config files
+      ansible.windows.win_powershell:
+        script: | 
+          New-Item -Path $($env:localappdata)/nvim -ItemType SymbolicLink -Value ~\github\nvim-note
+
+- name: Install tools for daily tasks
+  hosts: all
+  become_method: runas
+  tasks: 
+    - name: Install Switcheroo
+      win_chocolatey:
+        name: switcheroo
+        version: 0.9.2.111
+
+    - name: Install Microsoft PowerToys
+      win_command: winget install -e --id Microsoft.PowerToys
+
+    - name: Install 7zip
+      win_command: winget install -e --id 7zip.7zip
+
+    - name: Install fzf, ripgrep
+      win_chocolatey:
+        name:
+        - fzf
+        - ripgrep
+

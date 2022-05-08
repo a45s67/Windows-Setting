@@ -1,0 +1,21 @@
+- name: Install password manager tools
+  hosts: all
+  tasks: 
+    - name: Install Bitwarden
+      win_command: winget install -e --id Bitwarden.Bitwarden
+
+- name: Install communication apps
+  hosts: all
+  tasks: 
+    - name: Install Line
+      win_command: winget install -e --id LINE.LINE
+    - name: Install Discord
+      win_command: winget install -e --id Discord.Discord
+    - name: Install Wechat
+      win_command: winget install -e --id Tencent.WeChat
+
+- name: Install gaming platform
+  hosts: all
+  tasks: 
+    - name: Install Steam
+      win_command: winget install -e --id Valve.Steam

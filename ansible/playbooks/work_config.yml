@@ -1,0 +1,27 @@
+- name: Test connection
+  hosts: all
+  tasks:
+    - name: Ping
+      win_ping:
+    - name: Show whoami
+      ansible.windows.win_command: whoami
+      register: whoami
+    - debug: var=whoami.stdout 
+
+
+- name: Install password manager tools
+  hosts: all
+  tasks: 
+    - name: Install 1password
+      win_command: winget install -e --id AgileBits.1Password
+    - name: Install Bitwarden
+      win_command: winget install -e --id Bitwarden.Bitwarden
+
+- name: Install communication apps
+  hosts: all
+  tasks: 
+    - name: Install Microsoft Teams
+      win_command: winget install -e --id Microsoft.Teams
+    - name: Install Slack
+      win_command: winget install -e --id SlackTechnologies.Slack
+

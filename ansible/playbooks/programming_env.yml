@@ -1,0 +1,30 @@
+- name: Install version control tools
+  hosts: all
+  tasks: 
+    - name: Install Git
+      win_command: winget install -e --id Git.Git
+    - name: Install Github.cli
+      win_command: winget install -e --id GitHub.cli
+
+- name: Install programming language supports
+  hosts: all
+  tasks: 
+    - name: Install Node
+      win_command: winget install -e --id OpenJS.NodeJS
+
+    - name: Install Python3
+      win_command: winget install -e --id Python.Python.3
+
+    - name: Install VC++ (Visual studio 2019)
+      win_ping:
+      # Haven't figure out how to automate the installation. Maybe reference the dockerfile I have done before.
+
+- name: Install editors
+  hosts: all
+  tasks: 
+    - name: Install vscode
+      win_command: winget install -e --id Microsoft.VisualStudioCode
+
+    - name: Install neovim
+      win_command: winget install Neovim.Neovim
+    
