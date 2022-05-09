@@ -1,3 +1,22 @@
+
+- name: Install programming language supports (VC++)
+  hosts: all
+  tasks:
+    - name: Download installer (community)
+      # Docker image: https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container?view=vs-2022
+      # Avaliable installers and command line install guide: https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2022
+      win_get_url:
+        url: https://aka.ms/vs/16/release/vs_community.exe
+        dest: "{{ ansible_env.USERPROFILE }}\\Desktop\\vs_community.exe"
+    - name: Install VC++ buildtools
+      ansible.windows.win_powershell:
+        script: |
+          $vs_installer = "~/Desktop/vs_community.exe"
+          Start-Process $vs_installer -Wait `
+          -ArgumentList "install -p --norestart --add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.Workload.ManagedDesktop --includeRecommended"
+          Start-Process $vs_installer -Wait `
+          -ArgumentList "update -p --norestart"
+
 - name: Install version control tools
   hosts: all
   tasks: 
@@ -6,7 +25,7 @@
     - name: Install Github.cli
       win_command: winget install -e --id GitHub.cli
 
-- name: Install programming language supports
+- name: Install programming language supports (node, python)
   hosts: all
   tasks: 
     - name: Install Node
@@ -14,11 +33,6 @@
 
     - name: Install Python3
       win_command: winget install -e --id Python.Python.3
-
-    - name: Install VC++ (Visual studio 2019)
-      win_ping:
-      # Haven't figure out how to automate the installation. Maybe reference the dockerfile I have done before.
-
 - name: Install editors
   hosts: all
   tasks: 
