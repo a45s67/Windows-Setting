@@ -1,44 +1,48 @@
-
-- name: Install programming language supports (VC++)
+- name: Ensure Chocolatey itself is installed, using community repo for the bootstrap
   hosts: all
-  tasks:
-    - name: Download installer (community)
-      # Docker image: https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container?view=vs-2022
-      # Avaliable installers and command line install guide: https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2022
-      win_get_url:
-        url: https://aka.ms/vs/16/release/vs_community.exe
-        dest: "{{ ansible_env.USERPROFILE }}\\Desktop\\vs_community.exe"
-    - name: Install VC++ buildtools
-      ansible.windows.win_powershell:
-        script: |
-          $vs_installer = "~/Desktop/vs_community.exe"
-          Start-Process $vs_installer -Wait `
-          -ArgumentList "install -p --norestart --add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.Workload.ManagedDesktop --includeRecommended"
-          Start-Process $vs_installer -Wait `
-          -ArgumentList "update -p --norestart"
+  tasks: 
+   - name: Install chocolatey
+     win_chocolatey:
+       name: chocolatey
 
 - name: Install version control tools
   hosts: all
   tasks: 
     - name: Install Git
-      win_command: winget install -e --id Git.Git
-    - name: Install Github.cli
-      win_command: winget install -e --id GitHub.cli
+      win_chocolatey:
+        name: git
+        state: present
 
 - name: Install programming language supports (node, python)
   hosts: all
   tasks: 
     - name: Install Node
-      win_command: winget install -e --id OpenJS.NodeJS
+      win_chocolatey:
+        name: git
+        state: present
 
     - name: Install Python3
-      win_command: winget install -e --id Python.Python.3
+      win_chocolatey:
+        name: nodejs
+        state: present
+
+- name: Install terminal
+  hosts: all
+  tasks: 
+    - name: Install windows ternimal
+      win_chocolatey:
+        name: microsoft-windows-terminal
+
 - name: Install editors
   hosts: all
   tasks: 
     - name: Install vscode
-      win_command: winget install -e --id Microsoft.VisualStudioCode
+      win_chocolatey:
+        name: vscode
+        state: present
 
     - name: Install neovim
-      win_command: winget install Neovim.Neovim
+      win_chocolatey:
+        name: neovim
+        state: present
     

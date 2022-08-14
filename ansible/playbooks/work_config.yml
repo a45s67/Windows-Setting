@@ -13,15 +13,19 @@
   hosts: all
   tasks: 
     - name: Install 1password
-      win_command: winget install -e --id AgileBits.1Password
+      win_chocolatey:
+        name: 1password
     - name: Install Bitwarden
-      win_command: winget install -e --id Bitwarden.Bitwarden
+      win_chocolatey:
+        name: bitwarden
 
 - name: Install communication apps
   hosts: all
   tasks: 
     - name: Install Microsoft Teams
-      win_command: winget install -e --id Microsoft.Teams
+      win_chocolatey:
+        name: microsoft-teams
     - name: Install Slack
-      win_command: winget install -e --id SlackTechnologies.Slack
+      win_chocolatey:
+        name: slack
 

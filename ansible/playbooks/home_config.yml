@@ -2,20 +2,22 @@
   hosts: all
   tasks: 
     - name: Install Bitwarden
-      win_command: winget install -e --id Bitwarden.Bitwarden
+      win_chocolatey:
+        name: bitwarden
 
 - name: Install communication apps
   hosts: all
   tasks: 
-    - name: Install Line
-      win_command: winget install -e --id LINE.LINE
     - name: Install Discord
-      win_command: winget install -e --id Discord.Discord
+      win_chocolatey:
+        name: discord
     - name: Install Wechat
-      win_command: winget install -e --id Tencent.WeChat
+      win_chocolatey:
+        name: wechat
 
 - name: Install gaming platform
   hosts: all
   tasks: 
     - name: Install Steam
-      win_command: winget install -e --id Valve.Steam
+      win_chocolatey:
+        name: steam-client

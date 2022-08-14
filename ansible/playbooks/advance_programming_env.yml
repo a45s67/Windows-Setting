@@ -50,7 +50,8 @@
   hosts: all
   tasks: 
     - name: Install ohmyposh
-      win_command: winget install oh-my-posh
+      win_chocolatey:
+        name: oh-my-posh
     - name: Install PSReadLine and TerminalIcons
       win_command: pwsh.exe -noprofile -command "Install-Module PSReadLine -AllowPrerelease -Force; Install-Module -Name Terminal-Icons -Repository PSGallery"
 
@@ -122,13 +123,10 @@
     - name: Install Switcheroo
       win_chocolatey:
         name: switcheroo
-        version: 0.9.2.111
-
-    - name: Install Microsoft PowerToys
-      win_command: winget install -e --id Microsoft.PowerToys
 
     - name: Install 7zip
-      win_command: winget install -e --id 7zip.7zip
+      win_chocolatey:
+        name: 7zip.install
 
     - name: Install fzf, ripgrep
       win_chocolatey:
