@@ -88,7 +88,7 @@
     - name: Symlink the config files
       ansible.windows.win_powershell:
         script: | 
-          New-Item -Path $PROFILE -ItemType SymbolicLink -Value ~/github/Windows-Setting/Microsoft.Powershell_Profile.ps1
+          New-Item -Path ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink -Value ~/github/Windows-Setting/Microsoft.Powershell_Profile.ps1
           New-Item -Path ~/PSReadLineProfile.ps1 -ItemType SymbolicLink -Value ~/github/Windows-Setting/PSReadLineProfile.ps1 
 
 - name: Set nvim configs
